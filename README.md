@@ -7,7 +7,15 @@ The easiest route for this is to add your JAR to your local Maven repository fro
 project.
 To do this, use the following command:
 
-```bash
+First, build the project by running the following command in its directory.
+
+```shell
+mvn clean install
+```
+
+Then, add th JAR to your local maven repository.
+
+```shell
  mvn install:install-file -Dfile=<path-to-jar-in-target-dir> -DgroupId=com.github.lajospolya -DartifactId=meterRegistryPerformance -Dversion=1.0-SNAPHSHOT -Dpackaging=jar
 ```
 
