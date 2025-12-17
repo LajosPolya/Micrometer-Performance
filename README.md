@@ -7,7 +7,7 @@ The easiest route for this is to add your JAR to your local Maven repository fro
 project.
 To do this, use the following command:
 
-First, build the project by running the following command in its directory.
+First, build the project by running the following command in the project's directory.
 
 ```shell
 mvn clean install
