@@ -12,3 +12,13 @@ To do this, use the following command:
 ```
 
 Follow https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html for other examples.
+
+Then, import the JAR as any other dependency using the Maven project's POM.
+
+```xml
+<dependency>
+    <groupId>com.github.lajospolya</groupId>
+    <artifactId>meterRegistryPerformance</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
