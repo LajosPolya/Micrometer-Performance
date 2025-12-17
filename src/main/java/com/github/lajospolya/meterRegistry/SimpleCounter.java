@@ -7,6 +7,9 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Contains methods used ot performance test various ways of calling increment on a {@link Counter}.
+ */
 public class SimpleCounter {
 
     private final MeterRegistry meterRegistry;
@@ -27,22 +30,41 @@ public class SimpleCounter {
         return tempCounters;
     }
 
+    /**
+     * Create a {@link Counter} with zero tags and increment it.
+     */
     public void createAndIncrement() {
         meterRegistry.counter("counter").increment();
     }
 
+    /**
+     * Increment a {@link Counter} with zero tags. Instead of creating the counter on the spot, use a reference to an
+     * existing counter.
+     */
     public void increment() {
         counter.increment();
     }
 
+    /**
+     * Create a {@link Counter} with one Enum tag and increment it.
+     */
     public void createAndIncrement(EnumState state) {
         meterRegistry.counter("counter", "state", state.name()).increment();
     }
 
+    /**
+     * Increment a {@link Counter} with one Enum tag. Instead of creating the counter on the spot, fetch a reference to
+     * an existing counter from an {@link EnumMap}. It is important to distinguish an {@link EnumMap} from a
+     * {@link java.util.HashMap} because the former stores values in an array removing the need to hash keys, resulting
+     * in much faster retrieval.
+     */
     public void increment(EnumState state) {
         counters.get(state).increment();
     }
 
+    /**
+     * An {@link Enum} representing a finite amount of arbitrary states.
+     */
     public enum EnumState {
         _1,
         _2,
