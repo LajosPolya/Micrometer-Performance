@@ -22,7 +22,7 @@ public class SimpleCounter {
     private Map<EnumState, Counter> getCounters() {
         Map<EnumState, Counter> tempCounters = new EnumMap<>(EnumState.class);
         for(EnumState state : EnumState.values()){
-            tempCounters.put(state, counter);
+            tempCounters.put(state, meterRegistry.counter("counter", "state", state.name()));
         }
         return tempCounters;
     }
