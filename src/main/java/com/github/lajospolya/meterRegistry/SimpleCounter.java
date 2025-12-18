@@ -15,8 +15,8 @@ public class SimpleCounter {
 
     private final MeterRegistry meterRegistry;
     private final Counter counter;
-    private final Map<EnumState, Counter> enumMapCounters;
-    private final Map<EnumState, Counter> hashMapCounters;
+    private final Map<ArbitraryState, Counter> enumMapCounters;
+    private final Map<ArbitraryState, Counter> hashMapCounters;
 
     public SimpleCounter() {
         meterRegistry = new SimpleMeterRegistry();
@@ -25,17 +25,17 @@ public class SimpleCounter {
         hashMapCounters = getCountersHashMap();
     }
 
-    private Map<EnumState, Counter> getCountersEnumMap() {
-        Map<EnumState, Counter> tempCounters = new EnumMap<>(EnumState.class);
-        for(EnumState state : EnumState.values()){
+    private Map<ArbitraryState, Counter> getCountersEnumMap() {
+        Map<ArbitraryState, Counter> tempCounters = new EnumMap<>(ArbitraryState.class);
+        for(ArbitraryState state : ArbitraryState.values()){
             tempCounters.put(state, meterRegistry.counter("counter", "state", state.name()));
         }
         return tempCounters;
     }
 
-    private Map<EnumState, Counter> getCountersHashMap() {
-        Map<EnumState, Counter> tempCounters = new HashMap<>(EnumState.values().length);
-        for(EnumState state : EnumState.values()){
+    private Map<ArbitraryState, Counter> getCountersHashMap() {
+        Map<ArbitraryState, Counter> tempCounters = new HashMap<>(ArbitraryState.values().length);
+        for(ArbitraryState state : ArbitraryState.values()){
             tempCounters.put(state, meterRegistry.counter("counter", "state", state.name()));
         }
         return tempCounters;
@@ -59,7 +59,7 @@ public class SimpleCounter {
     /**
      * Create a {@link Counter} with one Enum tag and increment it.
      */
-    public void createAndIncrement(EnumState state) {
+    public void createAndIncrement(ArbitraryState state) {
         meterRegistry.counter("counter", "state", state.name()).increment();
     }
 
@@ -69,7 +69,7 @@ public class SimpleCounter {
      * {@link java.util.HashMap} because the former stores values in an array removing the need to hash keys, resulting
      * in much faster retrieval.
      */
-    public void incrementEnum(EnumState state) {
+    public void incrementEnum(ArbitraryState state) {
         enumMapCounters.get(state).increment();
     }
 
@@ -79,44 +79,7 @@ public class SimpleCounter {
      * {@link java.util.HashMap} because the former stores values in an array removing the need to hash keys, resulting
      * in much faster retrieval.
      */
-    public void incrementHash(EnumState state) {
+    public void incrementHash(ArbitraryState state) {
         hashMapCounters.get(state).increment();
-    }
-
-    /**
-     * An {@link Enum} representing a finite amount of arbitrary states.
-     */
-    public enum EnumState {
-        _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17,
-        _18,
-        _19,
-        _20,
-        _21,
-        _22,
-        _23,
-        _24,
-        _25,
-        _26,
-        _27,
-        _28,
-        _29,
-        _30,
-        _31
     }
 }
