@@ -16,7 +16,7 @@ mvn clean install
 Then, add th JAR to your local maven repository.
 
 ```shell
- mvn install:install-file -Dfile=<path-to-jar-in-target-dir> -DgroupId=com.github.lajospolya -DartifactId=meterRegistryPerformance -Dversion=1.0-SNAPHSHOT -Dpackaging=jar
+ mvn install:install-file -Dfile=<path-to>/target/meterRegistryPerformance-1.0-SNAPSHOT.jar -DgroupId=com.github.lajospolya -DartifactId=meterRegistryPerformance -Dversion=1.0-SNAPHSHOT -Dpackaging=jar
 ```
 
 Follow https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html for other examples.
