@@ -5,6 +5,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,16 +15,26 @@ public class SimpleCounter {
 
     private final MeterRegistry meterRegistry;
     private final Counter counter;
-    private final Map<EnumState, Counter> counters;
+    private final Map<EnumState, Counter> enumMapCounters;
+    private final Map<EnumState, Counter> hashMapCounters;
 
     public SimpleCounter() {
         meterRegistry = new SimpleMeterRegistry();
         counter = meterRegistry.counter("counter");
-        counters = getCounters();
+        enumMapCounters = getCountersEnumMap();
+        hashMapCounters = getCountersHashMap();
     }
 
-    private Map<EnumState, Counter> getCounters() {
+    private Map<EnumState, Counter> getCountersEnumMap() {
         Map<EnumState, Counter> tempCounters = new EnumMap<>(EnumState.class);
+        for(EnumState state : EnumState.values()){
+            tempCounters.put(state, meterRegistry.counter("counter", "state", state.name()));
+        }
+        return tempCounters;
+    }
+
+    private Map<EnumState, Counter> getCountersHashMap() {
+        Map<EnumState, Counter> tempCounters = new HashMap<>(EnumState.values().length);
         for(EnumState state : EnumState.values()){
             tempCounters.put(state, meterRegistry.counter("counter", "state", state.name()));
         }
@@ -58,8 +69,18 @@ public class SimpleCounter {
      * {@link java.util.HashMap} because the former stores values in an array removing the need to hash keys, resulting
      * in much faster retrieval.
      */
-    public void increment(EnumState state) {
-        counters.get(state).increment();
+    public void incrementEnum(EnumState state) {
+        enumMapCounters.get(state).increment();
+    }
+
+    /**
+     * Increment a {@link Counter} with one Enum tag. Instead of creating the counter on the spot, fetch a reference to
+     * an existing counter from a {@link java.util.HashMap}. It is important to distinguish an {@link EnumMap} from a
+     * {@link java.util.HashMap} because the former stores values in an array removing the need to hash keys, resulting
+     * in much faster retrieval.
+     */
+    public void incrementHash(EnumState state) {
+        hashMapCounters.get(state).increment();
     }
 
     /**
