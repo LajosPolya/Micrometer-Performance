@@ -7,9 +7,7 @@ public class MainReinstantiateTagless {
     public static void main(String[] args) {
         ReinstantiatedTaglessCounter counter = new ReinstantiatedTaglessCounter();
 
-        long currentTime = System.currentTimeMillis();
-        long oneMinuteFromNow = 60 * 1000 + currentTime;
-        while (System.currentTimeMillis() < oneMinuteFromNow) {
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
             counter.increment();
         }
     }
