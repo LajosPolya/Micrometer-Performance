@@ -57,6 +57,6 @@ Once the project is build it can be run with JFR using the following command,
 ```shell
  java -XX:StartFlightRecording:filename=<filename.jfr> -jar target/meterRegistryPerformance-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
-where `<filename.jfr` represents the JFR file's name.
+where `<filename.jfr` represents the JFR file that will be generated.
 
 Once the file is generated, it can be opened using JDK Mission Control.
